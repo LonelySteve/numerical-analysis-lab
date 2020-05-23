@@ -1,0 +1,9 @@
+# LaTeX
+*.aux
+*.log
+*.pdf
+*.out
+*.synctex.gz
+# temp files
+*.bak
+*.t[e]mp
