@@ -4,6 +4,7 @@ function test_suite=testSquareRoot
     catch % no problem; early Matlab versions can use initTestSuite fine
     end
     initTestSuite;
+end
 
 function test_square_root
     A = [
@@ -26,5 +27,5 @@ function test_square_root
        -15;
         45;
     ];
-    assertTrue(mldivide(A, b), squareRoot(A, b));
+    assertElementsAlmostEqual(mldivide(A, b), squareRoot(A, b));
 end
