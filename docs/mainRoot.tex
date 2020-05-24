@@ -15,8 +15,17 @@
 \usepackage{xcolor}
 % 用于数学公式
 \usepackage{amsmath}
-
-
+\usepackage{lstfiracode} % https://ctan.org/pkg/lstfiracode
+% 设置代码块风格
+\lstset{
+  language=Matlab, 
+  numbers=left,
+  backgroundcolor=\color{lightgray!40!white},
+  basicstyle=\ttfamily,   % Use \ttfamily for source code listings
+  keywordstyle=\color{blue!70}\bfseries,
+  commentstyle=\ttfamily\color{green!40!black},
+}
+% 设置页面大小
 \geometry{hmargin=3.17cm, vmargin=2.54cm}
 \title{《数值分析》\\ 实\hspace{0.5cm}验\hspace{0.5cm}报\hspace{0.5cm}告}
 \author{\pyvar{author_info.author_name.value}}
