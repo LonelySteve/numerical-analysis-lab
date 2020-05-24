@@ -7,3 +7,9 @@
 # temp files
 *.bak
 *.t[e]mp
+# build
+build/
+# vscode
+.vscode/tasks.json
+# matlab
+*.mat
