@@ -1,0 +1,125 @@
+\documentclass{ctexart}
+
+% 用于导入图片
+% https://tex.stackexchange.com/a/23076
+\usepackage{graphicx}
+% 用于页面设置
+\usepackage[a4paper]{geometry}
+% 用于获取标题，作者等信息
+\usepackage{titling}
+% 用于下划线
+\usepackage{ulem}
+% 用于计算文字宽度
+\usepackage{calc}
+% 用于获得灰度模型
+\usepackage{xcolor}
+% 用于数学公式
+\usepackage{amsmath}
+
+
+\geometry{hmargin=3.17cm, vmargin=2.54cm}
+\title{《数值分析》\\ 实\hspace{0.5cm}验\hspace{0.5cm}报\hspace{0.5cm}告}
+\author{\pyvar{author_info.author_name.value}}
+% 行间距
+\linespread{1.3}
+
+\ctexset{
+    section={
+        name={实验},
+        format=\centering\kaishu\zihao{-2},
+        number=\chinese{section},
+    },
+    subsection={
+        name={,、},
+        format=\kaishu\zihao{-4},
+        number=\chinese{subsection},
+    },
+    subsubsection={
+        name={,、},
+        format=\kaishu\zihao{5},
+        number=\arabic{subsubsection}
+    }
+}
+
+% 重新定义标题页
+\renewcommand{\maketitle}{
+    \begin{titlepage}
+        \begin{center}
+            \includegraphics[width=2.84cm]{\pyvar{"imgs/schoolLogo1.png" | real_relative_path}}
+        \end{center}
+        \begin{center}
+            \includegraphics[width=6.67cm]{\pyvar{"imgs/schoolLogo2.png" | real_relative_path}}
+        \end{center}
+        \zihao{-0}
+        \heiti
+        % 标题
+        \begin{center}
+            \thetitle
+        \end{center}
+        \vspace{1cm}
+
+        \kaishu
+        \zihao{2}
+
+        \newlength{\underlineLength}
+        \setlength{\underlineLength}{8cm}
+        \newlength{\lrSpaceLength}
+
+        %% for item in  ["author_name", "author_student_number", "author_major_name", "author_class_name"]
+        \setlength{\lrSpaceLength}{
+            (\underlineLength - \widthof{\pyvar{author_info[item].value}}) / 2
+        }
+        % \pyvar{author_info[item]["trans"]}
+        \begin{center}
+            \pyvar{author_info[item].trans}：\uline{\hspace{\lrSpaceLength}\pyvar{author_info[item].value}\hspace{\lrSpaceLength}}
+        \end{center}
+        %% endfor
+        \vspace{1cm}
+        \begin{center}
+            \selectcolormodel{gray}
+            \includegraphics[width=2.33cm]{\pyvar{"imgs/majorLogoGray.png" | real_relative_path}}
+        \end{center}
+        \begin{center}
+            \zihao{-1}
+            计算机科学学院 \\
+            \vspace{1cm}
+            \zihao{-2}
+            2019-2020学年 第2学期
+        \end{center}
+    \end{titlepage}
+}
+
+
+\begin{document}
+% 标题页
+\maketitle
+
+\section{}
+
+\zihao{-5}
+
+\subsection{问题的描述}
+
+\input{\pyvar{"components/questionDesc.tex" | input_tex}}
+
+\subsection{方法描述}
+
+\input{\pyvar{"components/methodDesc.tex" | input_tex}}
+
+\subsection{算法设计}
+
+\input{\pyvar{"components/algorithmDesign.tex" | input_tex}}
+
+\subsection{程序代码}
+
+\input{\pyvar{"components/code.tex" | input_tex}}
+
+\subsection{计算结果及其分析}
+
+\input{\pyvar{"components/resultAnalysis.tex" | input_tex}}
+
+\subsection{结论}
+
+\input{\pyvar{"components/conclusion.tex" | input_tex}}
+
+\end{document}
