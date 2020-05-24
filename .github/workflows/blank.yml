@@ -1,0 +1,85 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master, test-ci ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # 测试 MATLAB 代码
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # 检查 MATLAB 测试是否通过
+      - name: MOxUnit Action
+        uses: joergbrech/moxunit-action@v1.1
+        with:
+          # directory containing the MOxUnit test cases
+          tests: tests/ 
+          # directory of the source code
+          src: src/
+  # 部署
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # 当且仅当测试成功完成后进行
+    needs: [test]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # 安装依赖
+      - name: Installation dependencies
+        run: sudo apt install pip3 -y && pip3 install -r docs/requirements.txt
+      # 通过 Python 脚本构建 tex 文档
+      - name: Build tex
+        run: python3 docs/build.py
+        env:
+          BUILD_AUTHOR_NAME: ${{ secrets.author_name }}
+          BUILD_AUTHOR_CLASS_NAME: ${{ secrets.author_class_name }}
+          BUILD_AUTHOR_MAJOR_NAME: ${{ secrets.author_major_name }}
+          BUILD_AUTHOR_STUDENT_NUMBER: ${{ secrets.author_student_number }}
+      # 构建出 pdf 文档
+      - name: Build pdf
+        uses: xu-cheng/latex-action@v2
+        with:
+          # The root LaTeX file to be compiled
+          root_file: docs/main.tex
+          # The working directory for the LaTeX engine
+          working_directory: docs/
+          # https://github.com/xu-cheng/latex-action#how-to-use-xelatex-or-lualatex-instead-of-pdflatex
+          args: xelatex -file-line-error -interaction=nonstopmode
+      # 重命名 & 打包
+      - name: Pack up
+        run: |
+          mv docs/main.pdf "docs/${REPORT_NAME}".pdf
+          mkdir "docs/${REPORT_NAME}"
+          tar -czvf "docs/${PACKAGE_NAME}.tar.gz" "docs/${REPORT_NAME}"
+        env:
+          REPORT_NAME: ${{ secrets.report_name }}
+          PACKAGE_NAME: ${{ format("docs/[{0}-{1}]{2}.tar.gz", github.ref, github.sha, secrets.report_name) }}
+      # 上传至私有服务器
+      # https://stackoverflow.com/a/5386587/12364718
+      - name: Upload
+        run: |
+          export SSHPASS="${PWD_SFTP_USER}"
+          sshpass -e sftp -oBatchMode=no -b - "${SFTP_ADDRESS}" << EOF
+            cd upload
+            put "docs/${PACKAGE_NAME}.tar.gz"
+            bye
+          EOF
+        env:
+          SFTP_ADDRESS: ${{ secrets.sftp_address }}
+          PWD_SFTP_USER: ${{ secrets.pwd_sftp_user }}
+          PACKAGE_NAME: ${{ format("docs/[{0}-{1}]{2}.tar.gz", github.ref, github.sha, secrets.report_name) }}
