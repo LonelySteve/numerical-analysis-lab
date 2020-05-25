@@ -2,20 +2,12 @@
 """
 tex 文档构建脚本
 --------------
-以给定的环境变量生成长江大学计算机科学学院的《数值分析》课程实验报告：
-
-- ROOT_TEX_FILE_OUTPUT_PATH：根 tex 文件输出路径，默认为当前工作目录路径下的 build/root.tex
-- AUTHOR_NAME：作者名
-- AUTHOR_CLASS_NAME: 作者班级名
-- AUTHOR_MAJOR_NAME：作者专业名
-- AUTHOR_STUDENT_NUMBER：作者学号
+处理 tex 模板文件，并输出渲染结果至指定目录
 
 """
 
 import os
 import re
-import sys
-from inspect import isfunction, ismethod
 from pathlib import Path
 from typing import Set
 
