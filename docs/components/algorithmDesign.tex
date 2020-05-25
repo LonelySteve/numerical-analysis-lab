@@ -1,0 +1,37 @@
+\subsubsection{问题一}
+
+\subsubsection{问题二}
+
+平方根法可以分为两大步进行：
+
+\begin{enumerate}
+    \item 将系数矩阵 $A$ 分解为 $A = LL^T$
+          \begin{enumerate}
+              \item 获取对称正定系数矩阵 $A$ 某个维度的长度 $n$
+              \item 如果 $n$ 等于 0 则结束递归，返回的 $L$ 和 $U$ 均为空矩阵
+              \item 对 $A$ 的第 1 行第 1 列求平方，得到的值赋值给下三角矩阵 $L$ 的第 1 行第 1 列
+              \item 对 $A$ 的第 1 列的 2 到 n 行的每一个值除以上一步（1.c）得到的值，并赋值给下三角矩阵 $L$ 的相同位置
+              \item 对 $A$ 的第 2 行到第 n 行，第 2 列到第 n 列这个子矩阵减去上一步（1.d）得到的值与其自身的转置的乘积，再将求得的值通过递归分解得到下三角矩阵 $L$ 第 2 行到第 n 行，第 2 列到第 n 列这个子矩阵
+              \item 通过转置 $L$ 得到上三角矩阵 $L^T$
+          \end{enumerate}
+    \item 通过 $L$ 和 $L^T$ 回代计算得到解 $x$
+          \begin{enumerate}
+              \item 将 $L^T$ 赋值给 $U$
+              \item 初始化一个 n 行 1 列的 y 列向量
+              \item 从 1 迭代至 n，步长为 1，迭代的值赋值给 k。（k 的值表示当前迭代的，从 1 开始的行索引）
+                    \begin{enumerate}
+                        \item 将 $L$ 矩阵 k 行的 1 到 k - 1 列的这个向量，与 y 列向量的 1 到 k - 1 行的组成的向量相乘
+                        \item 将 b 向量的 k 行值减去上一步（2.b.i）的值，再除以 $L$ 矩阵第 k 行第 k 列
+                        \item 将上一步（2.c.ii）的值赋值给 y 向量的第 k 行第 1 列
+                    \end{enumerate}
+              \item 初始化一个 n 行 1 列的 x 向量，这个向量即最终的得到的解 $x$
+              \item 从 n 迭代至 1，步长为 -1，迭代的值赋值给 k。（k 的值表示当前迭代的，从 1 开始的行索引）
+                    \begin{enumerate}
+                        \item 将 $U$ 矩阵 k 行的 k + 1 到 n 列的这个向量，与 x 向量的 k + 1 到 n 行的组成的向量相乘
+                        \item 将 y 向量的第 k 行的值减去上一步（2.e.i） 的值，再除以 $U$ 矩阵第 k 行第 k 列
+                        \item 将上一步（2.e.ii）的值赋值给 x 向量的第 k 行的第 1 列
+                    \end{enumerate}
+          \end{enumerate}
+\end{enumerate}
+
+\subsubsection{问题三}
