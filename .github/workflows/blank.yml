@@ -60,7 +60,7 @@ jobs:
           working_directory: build/
           # https://github.com/xu-cheng/latex-action#how-to-use-xelatex-or-lualatex-instead-of-pdflatex
           args: -xelatex -file-line-error -interaction=nonstopmode
-      # 重命名 & 迁移
+      # 重命名 & 复制到部署目录
       - name: Copy
         run: |
           mkdir -p "build/deploy"
@@ -69,7 +69,6 @@ jobs:
         env:
           REPORT_NAME: ${{ secrets.report_name }}
       # 上传至私有服务器
-      # https://stackoverflow.com/a/5386587/12364718
       - name: Upload
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
