@@ -92,7 +92,7 @@ def main(config: BuildConfig):
         # 自动建立可能缺失的文件夹
         child_tex_file_output_path.parent.mkdir(parents=True, exist_ok=True)
         # 输出模板渲染后的结果
-        print(f"写出子模板：{child_tex_file_output_path}")
+        print(f"写出子模板渲染结果至：{child_tex_file_output_path}")
         with open(child_tex_file_output_path, "w", encoding="utf-8") as fp:
             fp.write(template.render())
         # 记录已处理的子模板路径
@@ -120,6 +120,7 @@ def main(config: BuildConfig):
         )
         # 自动建立可能缺失的文件夹
         output_root_tex_file_path.parent.mkdir(parents=True, exist_ok=True)
+        print(f"写出根模板渲染结果至：{output_root_tex_file_path}")
         with open(output_root_tex_file_path, "w", encoding="utf-8",) as fp:
             fp.write(
                 template.render(
