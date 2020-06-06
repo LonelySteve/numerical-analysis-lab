@@ -16,6 +16,11 @@
 % 用于数学公式
 \usepackage{amsmath}
 \usepackage{lstfiracode} % https://ctan.org/pkg/lstfiracode
+% 用于排版算法
+\usepackage{algorithm}
+\usepackage{algorithmic}
+% 消除 Font Warning
+\usepackage{lmodern}
 % 设置代码块风格
 \lstset{
   language=Matlab, 
@@ -97,7 +102,28 @@
         \end{center}
     \end{titlepage}
 }
-
+% 解决 algorithm 算法过长会跳页显示的问题
+% https://www.cnblogs.com/qq952693358/p/8046923.html
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+   \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+       {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+       \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+       \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+       \fi
+       \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+   \end{center}
+  }
+\makeatother
 
 \begin{document}
 % 标题页

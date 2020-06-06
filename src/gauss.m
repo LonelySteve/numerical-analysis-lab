@@ -7,7 +7,7 @@ function [x] = gauss(A, b)
             B(o, :) = B(o, :) - (B(o, k) / B(k, k)) * B(k,:);
         end
     end
-    disp(B)
+    % 预分配 x 空间
     x = zeros(m-1, 1);
     % 回代求解
     for k = n:-1:1

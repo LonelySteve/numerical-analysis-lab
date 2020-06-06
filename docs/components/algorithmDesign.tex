@@ -1,37 +1,45 @@
 \subsubsection{问题一}
 
+\begin{breakablealgorithm}
+    \caption{高斯顺序消去法}
+    \begin{algorithmic}[1]
+        \REQUIRE{矩阵 $A$ 的对角线元素均不为 0}
+        \STATE $B \leftarrow [A, b]$ \COMMENT{通过合并系数矩阵 $A$ 和常数矩阵 $b$ 获得增广矩阵 $B$ }
+        \STATE $[n, m] \leftarrow size(B)$ \COMMENT{求增广矩阵 B 的行数和列数，分别记做 n 和 m}
+        \FOR{$k=1$ \TO $n$}
+        \FOR{$o=k+1$ \TO $n$}
+        \FOR{$p=0$ \TO $m$}
+        \STATE $B_{o, p} = B_{o, p} - (B_{o, k} / B_{k, k}) * B_{k, p}$
+        \ENDFOR
+        \ENDFOR
+        \ENDFOR
+        \STATE $x \leftarrow zeros(m-1, 1)$ \COMMENT{分配 x 的空间}
+        \FOR{$k=n$ \TO $1$ by step $-1$}
+        \FOR{$q=k+1$ \TO $m-1$}
+        \STATE $x_k \leftarrow (B_{k, m} - B_{k, q} * x_q ) / B_{k, k}$
+        \ENDFOR
+        \ENDFOR
+    \end{algorithmic}
+\end{breakablealgorithm}
+
 \subsubsection{问题二}
 
-平方根法可以分为两大步进行：
-
-\begin{enumerate}
-    \item 将系数矩阵 $A$ 分解为 $A = LL^T$
-          \begin{enumerate}
-              \item 获取对称正定系数矩阵 $A$ 某个维度的长度 $n$
-              \item 如果 $n$ 等于 0 则结束递归，返回的 $L$ 和 $U$ 均为空矩阵
-              \item 对 $A$ 的第 1 行第 1 列求平方，得到的值赋值给下三角矩阵 $L$ 的第 1 行第 1 列
-              \item 对 $A$ 的第 1 列的 2 到 n 行的每一个值除以上一步（1.c）得到的值，并赋值给下三角矩阵 $L$ 的相同位置
-              \item 对 $A$ 的第 2 行到第 n 行，第 2 列到第 n 列这个子矩阵减去上一步（1.d）得到的值与其自身的转置的乘积，再将求得的值通过递归分解得到下三角矩阵 $L$ 第 2 行到第 n 行，第 2 列到第 n 列这个子矩阵
-              \item 通过转置 $L$ 得到上三角矩阵 $L^T$
-          \end{enumerate}
-    \item 通过 $L$ 和 $L^T$ 回代计算得到解 $x$
-          \begin{enumerate}
-              \item 将 $L^T$ 赋值给 $U$
-              \item 初始化一个 n 行 1 列的 y 列向量
-              \item 从 1 迭代至 n，步长为 1，迭代的值赋值给 k。（k 的值表示当前迭代的，从 1 开始的行索引）
-                    \begin{enumerate}
-                        \item 将 $L$ 矩阵 k 行的 1 到 k - 1 列的这个向量，与 y 列向量的 1 到 k - 1 行的组成的向量相乘
-                        \item 将 b 向量的 k 行值减去上一步（2.b.i）的值，再除以 $L$ 矩阵第 k 行第 k 列
-                        \item 将上一步（2.c.ii）的值赋值给 y 向量的第 k 行第 1 列
-                    \end{enumerate}
-              \item 初始化一个 n 行 1 列的 x 向量，这个向量即最终的得到的解 $x$
-              \item 从 n 迭代至 1，步长为 -1，迭代的值赋值给 k。（k 的值表示当前迭代的，从 1 开始的行索引）
-                    \begin{enumerate}
-                        \item 将 $U$ 矩阵 k 行的 k + 1 到 n 列的这个向量，与 x 向量的 k + 1 到 n 行的组成的向量相乘
-                        \item 将 y 向量的第 k 行的值减去上一步（2.e.i） 的值，再除以 $U$ 矩阵第 k 行第 k 列
-                        \item 将上一步（2.e.ii）的值赋值给 x 向量的第 k 行的第 1 列
-                    \end{enumerate}
-          \end{enumerate}
-\end{enumerate}
+\begin{breakablealgorithm}
+    \caption{cholesky 算法}
+    \begin{algorithmic}[1]
+        \REQUIRE{被分解的矩阵必须为厄米特矩阵或符合正定矩阵定义的矩阵}
+        \STATE $[n, ~] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
+        \STATE $L \leftarrow zeros(n, n)$ \COMMENT{分配矩阵 L 的空间}
+        \FOR{$j=1$ \TO $n$}
+        \FOR{$i=j$ \TO $n$}
+        \IF{$i == j$}
+        \STATE $L_{i, j} \leftarrow \sqrt{A_{i, j}} - \sum_{k=1}^{j-1}L_{j, k}^2$
+        \ELSE
+        \STATE $L_{i, j} \leftarrow (A_{i, j} - \sum_{k=1}^{j-1}L_{i, k}L_{j, k}) / L_{j, j}$
+        \ENDIF
+        \ENDFOR
+        \ENDFOR
+    \end{algorithmic}
+\end{breakablealgorithm}
 
 \subsubsection{问题三}

@@ -1,6 +1,5 @@
-\subsubsection{问题一}
-\subsubsection{问题二}
-%% for name in ["cholesky", "squareRoot"]
+%% macro include_by_name(names)
+%% for name in names
 \noindent
 \textit{\pyvar{name + ".m"}}
 \begin{lstlisting}[frame=single]
@@ -8,4 +7,10 @@
 \pyvar{rel_path | include_code}
 \end{lstlisting}
 %% endfor
+%% endmacro
+
+\subsubsection{问题一}
+\pyvar{include_by_name(["gauss"])}
+\subsubsection{问题二}
+\pyvar{include_by_name(["cholesky", "squareRoot"])}
 \subsubsection{问题三}
