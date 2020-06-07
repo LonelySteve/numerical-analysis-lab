@@ -21,7 +21,7 @@
 \(A = L L^T\) 的形式。这里的系数矩阵 \(A\) 是对称正定矩阵，其中的 \(L\)
 是下三角矩阵。
 
-由此可以写出以下等式： 
+由此可以写出以下等式：
 
 \begin{equation*}
     \begin{aligned}
@@ -36,7 +36,7 @@
             0      & l_{22} & l_{32} \\
             0      & 0      & l_{33} \\
         \end{bmatrix} \\
-                      & =
+                 & =
         \begin{bmatrix}
             l_{11}^2     &                             & (symmetric)                     \\
             l_{21}l_{11} & l_{21}^2 + l_{22}^2                                           \\
@@ -50,9 +50,9 @@
 \begin{equation*}
     L =
     \begin{bmatrix}
-        (\pm) \sqrt{a_{11}}   & 0                            & 0                               \\
-        a_{21} / l_{11} &  (\pm)\sqrt{a_{22}-l_{21}^2}       & 0                               \\
-        a_{31} / l_{11} & (a_{32}-l_{31}l_{21})/l_{22} &  (\pm) \sqrt{a_{33}-l_{31}^2-l_{32}^2} \\
+        (\pm) \sqrt{a_{11}} & 0                            & 0                                     \\
+        a_{21} / l_{11}     & (\pm)\sqrt{a_{22}-l_{21}^2}  & 0                                     \\
+        a_{31} / l_{11}     & (a_{32}-l_{31}l_{21})/l_{22} & (\pm) \sqrt{a_{33}-l_{31}^2-l_{32}^2} \\
     \end{bmatrix}
 \end{equation*}
 
@@ -91,4 +91,112 @@
 就可以先计算 \(y\)，再计算 \(x\)，因为 \(L\) 是下三角矩阵，而 \(L^T\)
 是上三角矩阵，这样会比直接使用 \(A\) 计算更简便。
 
-\subsubsection{}
+\subsubsection{追赶法}
+
+设系数矩阵 $A$ 为对角占优的三对角线矩阵，则有：
+
+\begin{equation}
+    A =
+    \begin{bmatrix}
+        b_1 & c_1                                  \\
+        a_2 & b_2    & c_2                         \\
+            & \ddots & \ddots  & \ddots            \\
+            &        & a_{n-1} & b_{n-1} & c_{n-1} \\
+            &        &         & a_n     & b_n
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1     \\
+        x_2     \\
+        \vdots  \\
+        x_{n-1} \\
+        x_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        f_1     \\
+        f_2     \\
+        \vdots  \\
+        f_{n-1} \\
+        f_n
+    \end{bmatrix}
+    \label{three}
+\end{equation}
+
+简记为 \textbf{$Ax=f$}. 其中当 $\left|i-j\right| > 1$ 时，$a_{ij} = 0$，且有：
+
+\begin{enumerate}
+    \item $\left|b_1\right| > \left|c_1\right| > 0$；
+    \item $\left|b_i\right| \geq \left|a_i\right| + \left|c_i\right|, a_i, c_i \neq 0\quad(i=2,3,\cdots,n-1)$；
+    \item $\left|b_n\right| > \left|a_n\right| > 0$.
+\end{enumerate}
+
+利用矩阵的直接三角分解法来推导解三对角线方程组 \eqref{three} 的计算公式，由于系数阵 $A$ 的特点，可以将 $A$ 分解为两个三角阵的乘积，即:
+
+\[A=LU\]
+
+其中 $L$ 为下三角矩阵，$U$ 为单位上三角矩阵，这种分解是可能的，设：
+
+\begin{equation}
+    A =
+    \begin{bmatrix}
+        b_1 & c_1                                  \\
+        a_2 & b_2    & c_2                         \\
+            & \ddots & \ddots  & \ddots            \\
+            &        & a_{n-1} & b_{n-1} & c_{n-1} \\
+            &        &         & a_n     & b_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \alpha_1                                  \\
+        \gamma_2 & \alpha_2                       \\
+                 & \ddots   & \ddots              \\
+                 &          & \gamma_n & \alpha_n
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & \beta_1                        \\
+          & 1       & \ddots               \\
+          &         & \ddots & \beta_{n-1} \\
+          &         &        & 1
+    \end{bmatrix}
+    \label{split}
+\end{equation}
+
+其中 $\alpha_i$，$\beta_i$，$r_i$ 为待定系数，比较 \eqref{split} 两边可得
+
+\begin{equation}
+    \left.\begin{matrix}
+        b_1 = \alpha_1, c_1 = \alpha_1\beta_1,                                            \\
+        \alpha_i = \gamma_i, b_i = \gamma_i\beta_{i-1} + \alpha_i\quad(i = 2, \cdots, n), \\
+        c_i = \alpha_i\beta_i\quad(i=2,3,\cdots,n-1).
+    \end{matrix}\right\}
+    \label{result}
+\end{equation}
+
+由 $\alpha_1 = b_1 \neq 0$，$\left|b_1\right| > \left|c_1\right| > 0$，$\beta_1 = c_1 / b_1$，得 $0 < \left|\beta_1\right| < 1$. 用归纳法可以证明
+
+\[ \left|\alpha_i\right| > \left|c_i\right| \neq 0\quad(i=1,2, \cdots, n - 1)\]
+
+即 $0 < \left|\beta_i\right| < 1$，从而可以由 \eqref{result} 求出 $\beta_i$.
+
+求解 $Ax=f$ 等价于解两个三角形方程组
+
+\begin{enumerate}
+    \item $Ly=f$，求 $y$；
+    \item $Ux=y$，求 $x$.
+\end{enumerate}
+
+从而得到解三对角线方程组的追赶法公式：
+
+\begin{enumerate}
+    \item 计算 $\{\beta_i\}$ 的递推公式 \\
+          $\beta_1 = c_1 / b_1$，
+          $\beta_i = c_i / (b_i - a_i\beta_{i-1})$，$\quad(i=2,3,\cdots,n-1)$；
+    \item 解 $Ly = f$ \\
+          $y_1 = f_1 / b_1$，
+          $y_i = (f_i - a_iy_{i-1}) / (b_i - a_i\beta_{i-1})\quad(i=2,3,\cdots,n)$；
+    \item 解 $Ux = y$ \\
+          $x_n = y_n$，
+          $x_i = y_i - \beta_ix_{i+1}\quad(i=n-1,n-2,\cdots,2,1)$.
+\end{enumerate}
+
+计算系数 $\beta_1 \rightarrow \beta_2 \rightarrow \cdots \rightarrow \beta_{n-1}$ 以及 $y_1 \rightarrow y_2 \rightarrow \cdots \rightarrow y_n$的过程称为追的过程，将计算方程组的解 $x_n \rightarrow x_{n-1} \rightarrow \cdots \rightarrow x_1$ 的过程称为赶的过程.
