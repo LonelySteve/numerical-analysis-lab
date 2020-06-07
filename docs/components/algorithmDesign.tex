@@ -43,3 +43,37 @@
 \end{breakablealgorithm}
 
 \subsubsection{问题三}
+
+\begin{breakablealgorithm}
+    \caption{追赶法}
+    \begin{algorithmic}[1]
+        % \REQUIRE{系数矩阵 A 必须为三对角线矩阵}
+        \STATE $[n, ~] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
+        \STATE $a \leftarrow ones(n - 1, 1)$  \COMMENT{初始化 a 向量的空间}
+        \STATE $b \leftarrow ones(n, 1)$ \COMMENT{初始化 b 向量的空间}
+        \STATE $c \leftarrow ones(n - 1, 1)$\COMMENT{初始化 c 向量的空间}
+        \COMMENT{构造 a，b，c 向量}
+        \FOR{$i=1$ \TO $n - 1$}
+        \STATE $b_{i, 1} \leftarrow A_{i, i}$
+        \STATE $a_{i, 1} \leftarrow A_{i + 1, i}$
+        \STATE $c_{i, 1} \leftarrow A_{i, i + 1}$
+        \ENDFOR
+        \STATE $b_{n, 1} \leftarrow A_{n, n}$
+        \STATE $d \leftarrow zeros(n - 1, 1)$ \COMMENT{初始化 d 向量（$\beta$ 向量）的空间}
+        \STATE $d_1 \leftarrow c_1 / b_1$
+        \COMMENT{构造 d 向量}
+        \FOR{$i=2$ \TO $n - 1$}
+        \STATE $d_i \leftarrow c_i / (b_i - a_{i - 1} * d_{i - 1})$
+        \ENDFOR
+        \STATE $y \leftarrow zeros(n, 1)$ \COMMENT{初始化 y 向量的空间}
+        \STATE $y_1 \leftarrow f_1 / b_1$
+        \FOR{$i=2$ \TO $n$}
+        \STATE $y_i \leftarrow (f_i - a_{i - 1} * y_{i - 1}) / ((b_i - a_{i - 1}) * d_{i - 1})$
+        \STATE $x \leftarrow zeros(n, 1)$ \COMMENT{初始化解 x 向量的空间}
+        \STATE $x_n \leftarrow y_n$
+        \ENDFOR
+        \FOR{$i=n-1$ \TO $1$ by step $-1$}
+        \STATE $x_i = y_i - d_i * x_{i + 1}$
+        \ENDFOR
+    \end{algorithmic}
+\end{breakablealgorithm}
