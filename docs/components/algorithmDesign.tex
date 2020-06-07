@@ -28,7 +28,7 @@
     \caption{cholesky 算法}
     \begin{algorithmic}[1]
         \REQUIRE{被分解的矩阵必须为厄米特矩阵或符合正定矩阵定义的矩阵}
-        \STATE $[n, ~] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
+        \STATE $[n, \sim] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
         \STATE $L \leftarrow zeros(n, n)$ \COMMENT{分配矩阵 L 的空间}
         \FOR{$j=1$ \TO $n$}
         \FOR{$i=j$ \TO $n$}
@@ -48,7 +48,7 @@
     \caption{追赶法}
     \begin{algorithmic}[1]
         % \REQUIRE{系数矩阵 A 必须为三对角线矩阵}
-        \STATE $[n, ~] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
+        \STATE $[n, \sim] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
         \STATE $a \leftarrow ones(n - 1, 1)$  \COMMENT{初始化 a 向量的空间}
         \STATE $b \leftarrow ones(n, 1)$ \COMMENT{初始化 b 向量的空间}
         \STATE $c \leftarrow ones(n - 1, 1)$\COMMENT{初始化 c 向量的空间}
