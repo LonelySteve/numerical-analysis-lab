@@ -35,5 +35,5 @@ function test_catchup
         -5;
         ]
 
-    assertElementsAlmostEqual([2, 1, -3, 0, 1, -2, 3, -0, 1, -1], catchup(A, f));
+    assertElementsAlmostEqual([2; 1; -3; 0; 1; -2; 3; -0; 1; -1], catchup(A, f));
 end
