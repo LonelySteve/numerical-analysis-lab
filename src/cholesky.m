@@ -10,7 +10,7 @@ function [L, U] = cholesky(A)
 
     % 获取矩阵 A 的行数 n
     [n, ~] = size(A);
-    % 初始化矩阵 L 的空间
+    % 初始化矩阵 L
     L = zeros(n, n);
     % Cholesky–Crout - 从矩阵 L 的左上角开始，依列进行计算
     for col = 1:n

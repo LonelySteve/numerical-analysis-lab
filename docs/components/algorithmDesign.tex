@@ -13,7 +13,7 @@
         \ENDFOR
         \ENDFOR
         \ENDFOR
-        \STATE $x \leftarrow zeros(m-1, 1)$ \COMMENT{分配 x 的空间}
+        \STATE $x \leftarrow zeros(m-1, 1)$ \COMMENT{初始化 x 向量}
         \FOR{$k=n$ \TO $1$ by step $-1$}
         \FOR{$q=k+1$ \TO $m-1$}
         \STATE $x_k \leftarrow (B_{k, m} - B_{k, q} * x_q ) / B_{k, k}$
@@ -29,7 +29,7 @@
     \begin{algorithmic}[1]
         \REQUIRE{被分解的矩阵必须为厄米特矩阵或符合正定矩阵定义的矩阵}
         \STATE $[n, \sim] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
-        \STATE $L \leftarrow zeros(n, n)$ \COMMENT{分配矩阵 L 的空间}
+        \STATE $L \leftarrow zeros(n, n)$ \COMMENT{初始化矩阵 L}
         \FOR{$j=1$ \TO $n$}
         \FOR{$i=j$ \TO $n$}
         \IF{$i == j$}
@@ -49,9 +49,9 @@
     \begin{algorithmic}[1]
         % \REQUIRE{系数矩阵 A 必须为三对角线矩阵}
         \STATE $[n, \sim] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
-        \STATE $a \leftarrow ones(n - 1, 1)$  \COMMENT{初始化 a 向量的空间}
-        \STATE $b \leftarrow ones(n, 1)$ \COMMENT{初始化 b 向量的空间}
-        \STATE $c \leftarrow ones(n - 1, 1)$\COMMENT{初始化 c 向量的空间}
+        \STATE $a \leftarrow ones(n - 1, 1)$  \COMMENT{初始化 a 向量}
+        \STATE $b \leftarrow ones(n, 1)$ \COMMENT{初始化 b 向量}
+        \STATE $c \leftarrow ones(n - 1, 1)$\COMMENT{初始化 c 向量}
         \COMMENT{构造 a，b，c 向量}
         \FOR{$i=1$ \TO $n - 1$}
         \STATE $b_{i, 1} \leftarrow A_{i, i}$
@@ -59,17 +59,17 @@
         \STATE $c_{i, 1} \leftarrow A_{i, i + 1}$
         \ENDFOR
         \STATE $b_{n, 1} \leftarrow A_{n, n}$
-        \STATE $d \leftarrow zeros(n - 1, 1)$ \COMMENT{初始化 d 向量（$\beta$ 向量）的空间}
+        \STATE $d \leftarrow zeros(n - 1, 1)$ \COMMENT{初始化 d 向量（$\beta$ 向量）}
         \STATE $d_1 \leftarrow c_1 / b_1$
         \COMMENT{构造 d 向量}
         \FOR{$i=2$ \TO $n - 1$}
         \STATE $d_i \leftarrow c_i / (b_i - a_{i - 1} * d_{i - 1})$
         \ENDFOR
-        \STATE $y \leftarrow zeros(n, 1)$ \COMMENT{初始化 y 向量的空间}
+        \STATE $y \leftarrow zeros(n, 1)$ \COMMENT{初始化 y 向量}
         \STATE $y_1 \leftarrow f_1 / b_1$
         \FOR{$i=2$ \TO $n$}
         \STATE $y_i \leftarrow (f_i - a_{i - 1} * y_{i - 1}) / ((b_i - a_{i - 1}) * d_{i - 1})$
-        \STATE $x \leftarrow zeros(n, 1)$ \COMMENT{初始化解 x 向量的空间}
+        \STATE $x \leftarrow zeros(n, 1)$ \COMMENT{初始化 x 向量}
         \STATE $x_n \leftarrow y_n$
         \ENDFOR
         \FOR{$i=n-1$ \TO $1$ by step $-1$}
