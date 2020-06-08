@@ -1,6 +1,16 @@
 function x = catchup(A, f)
+    % catchup - 使用追赶法解线性方程组
+    %
+    % Syntax: x = catchup(A, f)
+    %
+    % - A：系数矩阵 A，应为三对角矩阵
+    % - b：常数矩阵 b
+    %
+    % 返回线性方程组的解 x
+
+    % 获取矩阵 A 的行数
     [n, ~] = size(A);
-    % 构建 a, b, c 向量
+    % 初始化 a, b, c 向量
     a = ones(n - 1, 1);
     b = ones(n, 1);
     c = ones(n - 1, 1);
@@ -23,8 +33,7 @@ function x = catchup(A, f)
     end
 
     % 解 Ly = f
-    % 初始化 y
-    y = zeros(n, 1);
+    y = zeros(n, 1); % 初始化 y
     % 构建 y
     y(1) = f(1) / b(1);
 
@@ -33,7 +42,7 @@ function x = catchup(A, f)
     end
 
     % 解 Ux = y
-    x = zeros(n, 1);
+    x = zeros(n, 1); % 初始化 x
     x(n) = y(n);
 
     for index = n - 1:-1:1
