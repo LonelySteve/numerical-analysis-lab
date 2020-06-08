@@ -5,12 +5,12 @@
 设有线性方程组：
 
 \begin{equation}
-    \left\{\begin{matrix}
-        a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1, \\
-        a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2, \\
-        \vdots                                            \\
-        a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m.
-    \end{matrix}\right.
+    \left\{\begin{aligned}
+         & a_{11}x_1 +  a_{12}x_2  +  \cdots  +  a_{1n}x_n = b_1, \\
+         & a_{21}x_1 +  a_{22}x_2  +  \cdots  +  a_{2n}x_n = b_2, \\
+         & \qquad\qquad\qquad\qquad\qquad\qquad\quad\vdots        \\
+         & a_{m1}x_1 +  a_{m2}x_2  +  \cdots  +  a_{mn}x_n = b_m.
+    \end{aligned}\right.
     \label{线性方程组示例}
 \end{equation}
 
@@ -49,18 +49,18 @@
           \begin{enumerate}
               \item 消元计算$(k=1, 2, \cdots, n - 1)$
                     \begin{equation*}
-                        \left\{\begin{matrix}
-                            m_{ik} = a_{ik}^{(k)} / a_{kk}^{(k)} \quad (i = k + 1, \cdots, n),                  \\
-                            a_{ij}^{(k+1)} = a_{ij}^{(k)} - m_{ik}a_{kj}^{(k)} \quad (i, j = k + 1, \cdots, n), \\
-                            b_i^{(k+1)} = b_i^{(k)} - m_{ik}b_k^{(k)} \quad (i = k + 1, \cdots, n).
-                        \end{matrix}\right.
+                        \left\{\begin{aligned}
+                             & m_{ik}         = a_{ik}^{(k)} / a_{kk}^{(k)} \quad (i = k + 1, \cdots, n),          \\
+                             & a_{ij}^{(k+1)} = a_{ij}^{(k)} - m_{ik}a_{kj}^{(k)} \quad (i, j = k + 1, \cdots, n), \\
+                             & b_i^{(k+1)}    = b_i^{(k)} - m_{ik}b_k^{(k)} \quad (i = k + 1, \cdots, n).
+                        \end{aligned}\right.
                     \end{equation*}
               \item 回代计算
                     \begin{equation*}
-                        \left\{\begin{matrix}
-                            m_n = b_n^{(n)} / a_{nn}^{(n)}, \\
-                            x_i = (b_i^{(i)} - \sum_{(j = i + 1)}^n a_{ij}^{(i)}x_j) / a_{ii} ^{(i)} \quad (i = n - 1, \cdots, 2, 1).
-                        \end{matrix}\right.
+                        \left\{\begin{aligned}
+                             & m_n = b_n^{(n)} / a_{nn}^{(n)},                                                                         \\
+                             & x_i = (b_i^{(i)} - \sum_{j = i + 1}^n a_{ij}^{(i)}x_j) / a_{ii} ^{(i)} \quad (i = n - 1, \cdots, 2, 1).
+                        \end{aligned}\right.
                     \end{equation*}
           \end{enumerate}
     \item 如果 $A$ 为非奇异矩阵，则可通过高斯消去法（及交换两行的初等变换）将方程组 $Ax = b$ 进行约化
@@ -132,10 +132,10 @@
 如果进行以下分解：
 
 \[
-    \left\{\begin{matrix}
-        y = L^Tx \\
-        Ly = b
-    \end{matrix}\right.
+    \left\{\begin{aligned}
+         & y  = L^Tx \\
+         & Ly = b
+    \end{aligned}\right.
 \]
 
 
@@ -215,11 +215,11 @@
 其中 $\alpha_i$，$\beta_i$，$r_i$ 为待定系数，比较 \eqref{追赶法:分解} 两边可得
 
 \begin{equation}
-    \left.\begin{matrix}
-        b_1 = \alpha_1, c_1 = \alpha_1\beta_1,                                            \\
-        \alpha_i = \gamma_i, b_i = \gamma_i\beta_{i-1} + \alpha_i\quad(i = 2, \cdots, n), \\
-        c_i = \alpha_i\beta_i\quad(i=2,3,\cdots,n-1).
-    \end{matrix}\right\}
+    \left.\begin{aligned}
+        b_1      = \alpha_1, c_1 = \alpha_1\beta_1,                                       & \\
+        \alpha_i = \gamma_i, b_i = \gamma_i\beta_{i-1} + \alpha_i\quad(i = 2, \cdots, n), & \\
+        c_i      = \alpha_i\beta_i\quad(i=2,3,\cdots,n-1).                                &
+    \end{aligned}\right\}
     \label{追赶法:推导公式}
 \end{equation}
 
