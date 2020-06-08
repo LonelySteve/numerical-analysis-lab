@@ -1,19 +1,70 @@
 \subsubsection{高斯消去法}
 
-高斯消去法，该方法以数学家卡尔·高斯命名，但最早出现于中国古籍《九章算术》，成书于约公元前150年。
+高斯消去法，该方法以数学家卡尔·高斯命名，但最早出现于中国古籍《九章算术》，成书于约公元前150年.
 
-整体的思路是，将线性方程组的增广矩阵通过初等行变换得到行阶梯形矩阵，再由下至上回代计算得到线性方程组的解。
+设有线性方程组：
 
-初等行变换有三种方式：
+\begin{equation}
+    \left\{\begin{matrix}
+        a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1, \\
+        a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2, \\
+        \vdots                                            \\
+        a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m.
+    \end{matrix}\right.
+    \label{线性方程组示例}
+\end{equation}
+
+或写成矩阵形式：
+
+\begin{equation*}
+    \begin{bmatrix}
+        a_{11} & a_{12} & \cdots & a_{1n} \\
+        a_{21} & a_{22} & \cdots & a_{2n} \\
+        \vdots & \vdots &        & \vdots \\
+        a_{m1} & a_{m2} & \cdots & a_{mn}
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1    \\
+        x_2    \\
+        \vdots \\
+        x_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        b_1    \\
+        b_2    \\
+        \vdots \\
+        b_m
+    \end{bmatrix}
+\end{equation*}
+
+简记为 $Ax = b$.
+
+用高斯消去法解方程组的基本思想是用逐次消去未知数的方法把源方程组 $Ax = b$ 化为与其等价的三角形方程组，而求解三角形方程组可用回代的方法求解. 换句话来说，用行的初等变换将原方程组的系数矩阵化为简单形式（上三角矩阵），从而将求解原方程组 \eqref{线性方程组示例} 的问题转化为求解简单方程组的问题，或者说，对系数矩阵 $A$ 实行一些左变换（用一些简单矩阵）将其约化为上三角矩阵.
+
+设 $Ax = b$，其中 $A \in R^{m \times n}$.
 
 \begin{enumerate}
-    \item 交换某两行
-    \item 将某行乘以一个非零的数
-    \item 将某行的倍数加到另一行
+    \item 如果 $a_{kk}^{k} \neq 0\quad(k=1, 2 , \cdots, n)$，则可以通过高斯消去法将 $Ax = b$ 约化为等价的三角形方程组，且计算公式为：
+          \begin{enumerate}
+              \item 消元计算$(k=1, 2, \cdots, n - 1)$
+                    \begin{equation*}
+                        \left\{\begin{matrix}
+                            m_{ik} = a_{ik}^{(k)} / a_{kk}^{(k)} \quad (i = k + 1, \cdots, n),                  \\
+                            a_{ij}^{(k+1)} = a_{ij}^{(k)} - m_{ik}a_{kj}^{(k)} \quad (i, j = k + 1, \cdots, n), \\
+                            b_i^{(k+1)} = b_i^{(k)} - m_{ik}b_k^{(k)} \quad (i = k + 1, \cdots, n).
+                        \end{matrix}\right.
+                    \end{equation*}
+              \item 回代计算
+                    \begin{equation*}
+                        \left\{\begin{matrix}
+                            m_n = b_n^{(n)} / a_{nn}^{(n)}, \\
+                            x_i = (b_i^{(i)} - \sum_{(j = i + 1)}^n a_{ij}^{(i)}x_j) / a_{ii} ^{(i)} \quad (i = n - 1, \cdots, 2, 1).
+                        \end{matrix}\right.
+                    \end{equation*}
+          \end{enumerate}
+    \item 如果 $A$ 为非奇异矩阵，则可通过高斯消去法（及交换两行的初等变换）将方程组 $Ax = b$ 进行约化
 \end{enumerate}
-
-在人工进行初等行变换时，可以配合使用以上三种方法来达到计算行阶梯形矩阵的目的，在计算机程序中实现时，可以仅使用最后一种方式来完成行阶梯形矩阵的计算。
-
 
 \subsubsection{平方根法}
 
