@@ -38,7 +38,8 @@ function x = catchup(A, f)
     y(1) = f(1) / b(1);
 
     for index = 2:n
-        y(index) = (f(index) - a(index - 1) * y(index - 1)) / (b(index) - a(index - 1) * d(index - 1));
+        y(index) = (f(index) - a(index - 1) * y(index - 1)) ...
+            / (b(index) - a(index - 1) * d(index - 1));
     end
 
     % 解 Ux = y
