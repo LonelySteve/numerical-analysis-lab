@@ -170,7 +170,7 @@
         f_{n-1} \\
         f_n
     \end{bmatrix}
-    \label{three}
+    \label{追赶法:三对角线方程组}
 \end{equation}
 
 简记为 \textbf{$Ax=f$}. 其中当 $\left|i-j\right| > 1$ 时，$a_{ij} = 0$，且有：
@@ -181,7 +181,7 @@
     \item $\left|b_n\right| > \left|a_n\right| > 0$.
 \end{enumerate}
 
-利用矩阵的直接三角分解法来推导解三对角线方程组 \eqref{three} 的计算公式，由于系数阵 $A$ 的特点，可以将 $A$ 分解为两个三角阵的乘积，即:
+利用矩阵的直接三角分解法来推导解三对角线方程组 \eqref{追赶法:三对角线方程组} 的计算公式，由于系数阵 $A$ 的特点，可以将 $A$ 分解为两个三角阵的乘积，即:
 
 \[A=LU\]
 
@@ -209,10 +209,10 @@
           &         & \ddots & \beta_{n-1} \\
           &         &        & 1
     \end{bmatrix}
-    \label{split}
+    \label{追赶法:分解}
 \end{equation}
 
-其中 $\alpha_i$，$\beta_i$，$r_i$ 为待定系数，比较 \eqref{split} 两边可得
+其中 $\alpha_i$，$\beta_i$，$r_i$ 为待定系数，比较 \eqref{追赶法:分解} 两边可得
 
 \begin{equation}
     \left.\begin{matrix}
@@ -220,14 +220,14 @@
         \alpha_i = \gamma_i, b_i = \gamma_i\beta_{i-1} + \alpha_i\quad(i = 2, \cdots, n), \\
         c_i = \alpha_i\beta_i\quad(i=2,3,\cdots,n-1).
     \end{matrix}\right\}
-    \label{result}
+    \label{追赶法:推导公式}
 \end{equation}
 
 由 $\alpha_1 = b_1 \neq 0$，$\left|b_1\right| > \left|c_1\right| > 0$，$\beta_1 = c_1 / b_1$，得 $0 < \left|\beta_1\right| < 1$. 用归纳法可以证明
 
 \[ \left|\alpha_i\right| > \left|c_i\right| \neq 0\quad(i=1,2, \cdots, n - 1)\]
 
-即 $0 < \left|\beta_i\right| < 1$，从而可以由 \eqref{result} 求出 $\beta_i$.
+即 $0 < \left|\beta_i\right| < 1$，从而可以由 \eqref{追赶法:推导公式} 求出 $\beta_i$.
 
 求解 $Ax=f$ 等价于解两个三角形方程组
 
