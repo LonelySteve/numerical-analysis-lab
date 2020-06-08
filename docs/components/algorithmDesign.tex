@@ -27,6 +27,7 @@
 \begin{breakablealgorithm}
     \caption{cholesky 算法}
     \begin{algorithmic}[1]
+        \label{alg:cholesky}
         \REQUIRE{被分解的矩阵必须为厄米特矩阵或符合正定矩阵定义的矩阵}
         \STATE $[n, \sim] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
         \STATE $L \leftarrow zeros(n, n)$ \COMMENT{初始化矩阵 L}
@@ -38,6 +39,22 @@
         \STATE $L_{i, j} \leftarrow (A_{i, j} - \sum_{k=1}^{j-1}L_{i, k}L_{j, k}) / L_{j, j}$
         \ENDIF
         \ENDFOR
+        \ENDFOR
+    \end{algorithmic}
+\end{breakablealgorithm}
+
+\begin{breakablealgorithm}
+    \caption{回代算法}
+    \begin{algorithmic}[1]
+        \STATE $[n, \sim] \leftarrow size(A)$ \COMMENT{获取矩阵 A 的行数 n}
+        \STATE $[L, U] \leftarrow cholesky(A)$ \COMMENT{通过算法 \ref{alg:cholesky} 分解系数矩阵 A}
+        \STATE $y = zeros(n, 1)$ \COMMENT{初始化 y}
+        \FOR{$k = 1$ \TO $n$}
+        \STATE $y_k = (b_k - \sum_{j = 1}^{k - 1} L_{k, j}y_j) / L_{k, k}$
+        \ENDFOR
+        \STATE $x = zeros(n, 1)$ \COMMENT{初始化 x}
+        \FOR{$k = n$ \TO 1 step by -1}
+        \STATE $x_k = (y_k - \sum_{j=k + 1}^n U_{k, j} * x_j) / U_{k, k}$
         \ENDFOR
     \end{algorithmic}
 \end{breakablealgorithm}
